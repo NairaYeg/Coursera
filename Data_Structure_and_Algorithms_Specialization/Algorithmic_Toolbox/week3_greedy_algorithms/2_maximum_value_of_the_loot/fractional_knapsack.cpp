@@ -11,49 +11,54 @@ double roundoff(double value, unsigned char prec)
   return round(value * pow_10) / pow_10;
 }
 
+int getMostExpensiveItem(vector<int> weights, vector<int> values)
+{
+  int maxIdx;
+  int price = 0;
+
+  for (
+      int i = 0; i < values.size(); i++)
+  {
+    if (values[i] / weights[i] > price)
+    {
+      price = values[i] / weights[i];
+      maxIdx = i;
+    };
+  };
+
+  return maxIdx;
+};
+
+double findminval(double num1, int num2)
+{
+  return num1 < num2 ? num1 : num2;
+}
+
 double get_optimal_value(int capacity, vector<int> weights, vector<int> values)
 {
   double value = 0.0;
-  int weight;
+  double weight;
+  double amount;
 
   if (capacity == 0 || weights.size() == 0)
   {
     return 0;
   };
+  int maxIdx = getMostExpensiveItem(weights, values);
 
-  int maxIdx = std::max_element(values.begin(), values.end()) - values.begin();
   weight = weights[maxIdx];
-  value = values[maxIdx];
 
-  if (weight <= capacity)
-  {
+  amount = findminval(weight, capacity);
 
-    values.erase(values.begin() + maxIdx);
-    weights.erase(weights.begin() + maxIdx);
+  value = (values[maxIdx] * amount) / weight;
 
-    double rounded = roundoff(value, 3);
+  values.erase(values.begin() + maxIdx);
+  weights.erase(weights.begin() + maxIdx);
 
-    return rounded + get_optimal_value(capacity - weights[maxIdx], weights, values);
-  };
+  double rounded = roundoff(value, 3);
 
-  if (weights.size() == 1)
-  {
-    value = (capacity * value) / weight;
-    values.erase(values.begin() + maxIdx);
-    weights.erase(weights.begin() + maxIdx);
-
-    double rounded = roundoff(value, 3);
-
-    return rounded + get_optimal_value(capacity, weights, values);
-  };
-
-  if (weight > capacity)
-  {
-    values.erase(values.begin() + maxIdx);
-    weights.erase(weights.begin() + maxIdx);
-    return get_optimal_value(capacity, weights, values);
-  };
-}
+  return rounded + get_optimal_value(capacity - amount, weights, values);
+};
 
 int main()
 {
