@@ -15,9 +15,10 @@ int getMostExpensiveItem(vector<int> weights, vector<int> values)
 {
   int maxIdx;
   int price = 0;
+  int length = values.size() < weights.size() ?  values.size() : weights.size();
 
   for (
-      int i = 0; i < values.size(); i++)
+      int i = 0; i < length; i++)
   {
     if (values[i] / weights[i] > price)
     {
@@ -37,10 +38,10 @@ double findminval(double num1, int num2)
 double get_optimal_value(int capacity, vector<int> weights, vector<int> values)
 {
   double value = 0.0;
-  double weight;
+  int weight;
   double amount;
 
-  if (capacity == 0 || weights.size() == 0)
+  if (capacity == 0 || weights.size() == 0 || values.size() == 0)
   {
     return 0;
   };
@@ -49,6 +50,7 @@ double get_optimal_value(int capacity, vector<int> weights, vector<int> values)
   weight = weights[maxIdx];
 
   amount = findminval(weight, capacity);
+
 
   value = (values[maxIdx] * amount) / weight;
 
