@@ -12,11 +12,11 @@ using std::string;
 bool myCmp(string s1, string s2)
 {
     if ((s1+s2).compare((s2+s1)) < 0) {
-        return s1 > s2;
+        return s1 < s2;
     };
 
     if ((s1+s2).compare((s2+s1)) > 0) {
-        return s1 < s2;
+        return s1 > s2;
     };
     
     return 0;
