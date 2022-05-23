@@ -9,11 +9,15 @@ vector<int> optimal_summands(int n) {
   summands.push_back(0);
     return summands;
   };
+
+  if (n == 2) {
+  summands.push_back(2);
+    return summands;
+  };
   
   int sum = 1;
   summands.push_back(1);
   int next;
-
 
   
   while (sum < n) {
