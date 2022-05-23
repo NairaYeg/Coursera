@@ -46,8 +46,8 @@ vector<int> optimal_points(vector<Segment> &segments) {
 }
 
 int main() {
-  int n = 3;
-  // std::cin >> n;
+  int n;
+  std::cin >> n;
   vector<Segment> segments(n);
   for (size_t i = 0; i < segments.size(); ++i) {
     std::cin >> segments[i].start >> segments[i].end;
